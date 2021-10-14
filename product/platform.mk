@@ -36,4 +36,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     macaddrsetup
 
-
+# BPF
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.kernel.ebpf.supported=false
