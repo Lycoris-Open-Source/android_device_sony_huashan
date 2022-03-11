@@ -4,6 +4,7 @@ BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_CMDLINE := # Ignored, see cmdline.txt
 BOARD_KERNEL_IMAGE_NAME := zImage
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000
+TARGET_KERNEL_CLANG_COMPILE := false
 
 # Kernel properties
 TARGET_KERNEL_SOURCE := kernel/sony/msm8960t
