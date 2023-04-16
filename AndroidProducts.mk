@@ -15,11 +15,8 @@
 # limitations under the License.
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/aosp_huashan.mk \
     $(LOCAL_DIR)/lineage_huashan.mk
 
 COMMON_LUNCH_CHOICES := \
-    aosp_huashan-eng \
-    aosp_huashan-userdebug \
     lineage_huashan-eng \
     lineage_huashan-userdebug
