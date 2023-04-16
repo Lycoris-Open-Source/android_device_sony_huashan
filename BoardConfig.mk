@@ -1,28 +1,173 @@
 #
-# Copyright (C) 2013-2016 The CyanogenMod Project
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#      http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+# Copyright (C) 2023 The LineageOS Project
 #
 
-# Board device path
 DEVICE_PATH := device/sony/huashan
+
+# Ignore every neverallows.
+SELINUX_IGNORE_NEVERALLOWS := true
+
+# QCOM hardware
+BOARD_USES_QCOM_HARDWARE := true
+
+# OTA
+TARGET_OTA_ASSERT_DEVICE := M35h,C5302,C5303,C5306,huashan
 
 # Board device headers
 TARGET_SPECIFIC_HEADER_PATH := $(DEVICE_PATH)/include
 
-# Board device elements
-include $(DEVICE_PATH)/PlatformConfig.mk
-include $(DEVICE_PATH)/board/*.mk
+# Vendor platform
+BOARD_VENDOR := sony
+BOARD_VENDOR_PLATFORM := viskan
+
+# Platform
+TARGET_BOARD_PLATFORM := msm8960
+
+# AOSP compatibility (just in case)
+ifneq ($(BOARD_AOSP_BASED),)
+QCOM_BOARD_PLATFORMS += msm8960
+endif
+
+# Architecture
+TARGET_ARCH := arm
+TARGET_ARCH_VARIANT := armv7-a-neon
+TARGET_CPU_ABI := armeabi-v7a
+TARGET_CPU_ABI2 := armeabi
+TARGET_CPU_VARIANT := krait
+
+# Bootloader
+TARGET_BOOTLOADER_BOARD_NAME := MSM8960
+
+# Bluetooth
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_PATH)/bluetooth
+BOARD_HAVE_BLUETOOTH := true
+BOARD_HAVE_BLUETOOTH_QCOM := true
+BLUETOOTH_HCI_USE_MCT := true
+
+# Binder API
+TARGET_USES_64_BIT_BINDER := true
+
+# Audio configurations
+AUDIO_FEATURE_ENABLED_COMPRESS_VOIP := true
+AUDIO_FEATURE_ENABLED_FLUENCE := true
+AUDIO_FEATURE_ENABLED_FM_POWER_OPT := true
+AUDIO_FEATURE_ENABLED_PROXY_DEVICE := true
+BOARD_USES_ALSA_AUDIO := true
+AUDIO_USE_LL_AS_PRIMARY_OUTPUT := true
+ifneq ($(BOARD_AOSP_BASED),)
+USE_CUSTOM_AUDIO_POLICY := 0
+else
+USE_CUSTOM_AUDIO_POLICY := 1
+endif
+USE_XML_AUDIO_POLICY_CONF := 1
+
+# Camera
+MALLOC_SVELTE_FOR_LIBC32 := true
+TARGET_HAS_LEGACY_CAMERA_HAL1 := true
+TARGET_PROVIDES_CAMERA_HAL := true
+TARGET_USES_MEDIA_EXTENSIONS := true
+USE_DEVICE_SPECIFIC_CAMERA := true
+
+# Dumpstate
+BOARD_LIB_DUMPSTATE := libdumpstate.sony
+
+# FM radio
+AUDIO_FEATURE_ENABLED_FM_POWER_OPT := true
+BOARD_HAVE_QCOM_FM := true
+
+# Graphics
+TARGET_USES_ION := true
+OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
+
+# GPS
+BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := $(TARGET_BOARD_PLATFORM)
+BOARD_VENDOR_QCOM_LOC_PDK_FEATURE_SET := true
+TARGET_NO_RPC := true
+
+# HIDL
+PRODUCT_ENFORCE_VINTF_MANIFEST_OVERRIDE := true
+DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/manifest.xml
+
+# Images
+TARGET_NO_BOOTLOADER := true
+TARGET_NO_RADIOIMAGE := true
+
+# Kernel
+BOARD_KERNEL_BASE := 0x80200000
+BOARD_KERNEL_PAGESIZE := 2048
+BOARD_KERNEL_CMDLINE := # Ignored, see cmdline.txt
+BOARD_KERNEL_IMAGE_NAME := zImage
+BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x02000000
+TARGET_KERNEL_SOURCE := kernel/sony/msm8960t
+TARGET_KERNEL_CONFIG := viskan_huashan_defconfig
+
+# Kernel additional flags
+TARGET_KERNEL_ADDITIONAL_FLAGS := \
+    HOSTCFLAGS="-fuse-ld=lld -Wno-unused-command-line-argument"
+
+# XSP need custom boot.img
+BOARD_CUSTOM_BOOTIMG := true
+BOARD_CUSTOM_BOOTIMG_MK := $(DEVICE_PATH)/boot/custombootimg.mk
+
+# Legacy blobs
+TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS := true
+TARGET_PROCESS_SDK_VERSION_OVERRIDE := \
+    /system/bin/mediaserver=22
+
+# Memfd
+TARGET_HAS_MEMFD_BACKPORT := true
+
+# Recovery
+RECOVERY_FSTAB_VERSION := 2
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/fstab.qcom
+
+# RIL
+BOARD_PROVIDES_LIBRIL := true
+TARGET_RIL_VARIANT := caf
+TARGET_USES_OLD_MNC_FORMAT := true
+
+# Shim
+TARGET_LD_SHIM_LIBS := \
+    /system/bin/mediaserver|libshim_unwind.so \
+    /system/lib/libcald_pal.so|libshim_cald.so \
+    /system/lib/hw/camera.vendor.qcom.so|libshim_camera.so
+
+# Sensors
+SOMC_CFG_SENSORS := true
+SOMC_CFG_SENSORS_ACCELEROMETER_LSM303DLHC_LT := yes
+SOMC_CFG_SENSORS_COMPASS_AK8963 := yes
+SOMC_CFG_SENSORS_COMPASS_LSM303DLHC := yes
+SOMC_CFG_SENSORS_GYRO_L3GD20 := yes
+SOMC_CFG_SENSORS_LIGHT_AS3677 := yes
+SOMC_CFG_SENSORS_LIGHT_AS3677_PATH := "/sys/devices/i2c-10/10-0040"
+SOMC_CFG_SENSORS_LIGHT_MAXRANGE := 12276
+SOMC_CFG_SENSORS_PROXIMITY_APDS9702 := yes
+
+# SEPolicy
+BOARD_SEPOLICY_DIRS += \
+    $(DEVICE_PATH)/sepolicy
+
+# Save more space for system.img by excluding Serif Fonts.
+EXCLUDE_SERIF_FONTS := true
+
+# User interfaces
+TARGET_ADDITIONAL_GRALLOC_10_USAGE_BITS := 0x02000000U
+TARGET_DISABLE_POSTRENDER_CLEANUP := true
+
+# VNDK
+TARGET_VNDK_USE_CORE_VARIANT := true
+
+# Wireless
+BOARD_HAS_QCOM_WLAN              := true
+BOARD_WLAN_DEVICE                := qcwcn
+BOARD_HOSTAPD_DRIVER             := NL80211
+BOARD_HOSTAPD_PRIVATE_LIB        := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
+BOARD_WPA_SUPPLICANT_DRIVER      := NL80211
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
+WIFI_DRIVER_FW_PATH_STA          := "sta"
+WIFI_DRIVER_FW_PATH_AP           := "ap"
+WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
+WPA_SUPPLICANT_VERSION           := VER_0_8_X
 
 # Board device vendor
 -include vendor/sony/huashan/BoardConfigVendor.mk

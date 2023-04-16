@@ -1,3 +1,0 @@
-# Recovery
-RECOVERY_FSTAB_VERSION := 2
-TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/fstab.qcom

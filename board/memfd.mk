@@ -1,2 +1,0 @@
-# Memfd
-TARGET_HAS_MEMFD_BACKPORT := true
