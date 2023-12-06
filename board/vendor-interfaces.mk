@@ -1,2 +1,4 @@
 # Vendor Interface Manifest
 DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/manifest.xml
+
+PRODUCT_ENFORCE_VINTF_MANIFEST_OVERRIDE := true
