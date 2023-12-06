@@ -15,7 +15,7 @@ $(ramdisk_init_real): $(TARGET_RAMDISK_OUT)/bin/toybox_init $(ramdisk_init) $(PR
 #	cp $(TARGET_RECOVERY_ROOT_OUT)/system/bin/toybox-static $(TARGET_RAMDISK_OUT)/bin/toybox_init
 	cp $(PRODUCT_OUT)/utilities/keycheck $(TARGET_RAMDISK_OUT)/bin/keycheck
 	cp $(PRODUCT_OUT)/utilities/init_sony $(TARGET_RAMDISK_OUT)/bin/init_sony
-	cp $(TARGET_RAMDISK_OUT)/logo.rle $(TARGET_RECOVERY_ROOT_OUT)
+	cp device/sony/huashan/boot/logo.rle $(TARGET_RECOVERY_ROOT_OUT)
 	$(hide) if [ ! -L $(ramdisk_init) ]; then \
 	  mv $(ramdisk_init) $(ramdisk_init_real); \
 	  ln -s /bin/init_sony $(ramdisk_init); \
