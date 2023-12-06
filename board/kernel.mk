@@ -16,3 +16,6 @@ TARGET_KERNEL_ADDITIONAL_FLAGS := \
 # Custom boot
 BOARD_CUSTOM_BOOTIMG := true
 BOARD_CUSTOM_BOOTIMG_MK := $(DEVICE_PATH)/boot/custombootimg.mk
+
+# Memfd
+TARGET_HAS_MEMFD_BACKPORT := true
