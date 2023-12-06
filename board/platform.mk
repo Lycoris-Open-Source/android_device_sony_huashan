@@ -19,3 +19,6 @@ TARGET_NO_RADIOIMAGE := true
 
 # Binder API
 TARGET_USES_64_BIT_BINDER := true
+
+# Tweaks for 'low ram' devices
+-include device/sony/huashan/lowram/BoardConfig.mk
