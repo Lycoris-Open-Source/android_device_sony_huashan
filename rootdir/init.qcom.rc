@@ -29,6 +29,9 @@
 import /vendor/etc/init/hw/init.board.target.rc
 import /vendor/etc/init/hw/init.target.rc
 
+on boot
+    setprop init.svc.console stopped
+
 on init
     symlink /dev/socket /tmp
 
