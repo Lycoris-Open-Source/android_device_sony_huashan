@@ -17,6 +17,10 @@ PRODUCT_PACKAGES += \
     libhwbinder \
     libhwbinder.vendor
 
+# Prebuilt Protobuf
+PRODUCT_COPY_FILES += \
+    prebuilts/vndk/v28/arm64/arch-arm-armv8-a/shared/vndk-core/libprotobuf-cpp-lite.so:$(TARGET_COPY_OUT_VENDOR)/lib/libprotobuf-cpp-lite-v28.so
+
 # Ramdisk packages
 PRODUCT_PACKAGES += \
     fstab.qcom \
@@ -31,3 +35,5 @@ PRODUCT_PACKAGES += \
 # Sony MACAddrSetup package
 PRODUCT_PACKAGES += \
     macaddrsetup
+
+
