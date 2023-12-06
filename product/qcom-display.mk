@@ -1,3 +1,7 @@
+# Configstore
+PRODUCT_PACKAGES += \
+    android.hardware.configstore@1.1-service
+
 # Display QCOM packages
 PRODUCT_PACKAGES += \
     hwcomposer.msm8960 \
