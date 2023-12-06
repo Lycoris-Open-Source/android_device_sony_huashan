@@ -13,9 +13,5 @@ TARGET_KERNEL_CONFIG := viskan_huashan_defconfig
 TARGET_KERNEL_ADDITIONAL_FLAGS := \
     HOSTCFLAGS="-fuse-ld=lld -Wno-unused-command-line-argument"
 
-# Custom boot
-BOARD_CUSTOM_BOOTIMG := true
-BOARD_CUSTOM_BOOTIMG_MK := $(DEVICE_PATH)/boot/custombootimg.mk
-
 # Memfd
 TARGET_HAS_MEMFD_BACKPORT := true
